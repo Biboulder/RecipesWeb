@@ -1,0 +1,63 @@
+<!--
+  #828277 #D4E8C1 #8DB87C #F5D769 #ED8A3F
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+    <script src="../JavaScript/signUpScript.js"></script>
+  </head>
+  <body>
+    <div
+      class="container justify-content-center allign-items-center max-width: 200px"
+      style="height: fit-content; display: flex; align-items: center; justify-content: center; margin-top: 10%; border-radius: 5%; background-color: rgb(141, 184, 124); max-width: 600px; padding: 1%"
+    >
+      <div class="row" style="width: 700px">
+        <div class="col-6">Favourite dish</div>
+        <div class="col-6">
+          <h4>SIGN-UP</h4>
+          <form id="formRegistration" method="GET" action="home.html" onsubmit="return checkRegistration()">
+            <div class="form-floating mb-3">
+              <input type="Username" class="form-control" id="username" placeholder="Uesrname" />
+              <label for="floatingInput">Username</label>
+              <div class="container" id="usernameError" style="color: red; font-size: 12px"></div>
+            </div>
+            <div class="form-floating mb-3">
+              <input type="email" class="form-control" id="email" placeholder="name@example.com" />
+              <label for="floatingInput">Email address</label>
+              <div class="container" id="emailError" style="color: red; font-size: 12px"></div>
+            </div>
+            <div class="input-group">
+              <div class="form-floating mb-2">
+                <input type="password" class="form-control" id="password" placeholder="Password" />
+
+                <label for="floatingPassword">Password</label>
+              </div>
+              <button class="btn mb-2" type="button" id="togglePasswordButton" onclick="toggle_Password()" style="background-color: #d4e8c1">
+                <i class="bi bi-eye-slash" id="togglePassword"></i>
+              </button>
+            </div>
+            <div id="passwordHelpBlock" class="form-text">
+              Your password must be 8-20 characters long, contain at least one capital letter, one number and one special character (!?_-). It must not contain spaces, others special characters, or
+              emoji.
+            </div>
+            <div class="container" id="pswdError" style="color: red; font-size: 12px"></div>
+            <div class="form-floating mb-3">
+              <input type="password" class="form-control" id="confirmPassword" placeholder="Password" />
+              <label for="floatingPassword">Confirm Password</label>
+              <div class="container" id="checkPswdError" style="color: red; font-size: 12px"></div>
+            </div>
+            <div>
+              <button type="submit" class="btn btn" style="background-color: #ed8a3f">sign-up</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
