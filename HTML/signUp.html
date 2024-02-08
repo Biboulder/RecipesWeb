@@ -13,6 +13,18 @@
     <script src="../JavaScript/signUpScript.js"></script>
   </head>
   <body>
+    <nav class="navbar navbar-expand-sm" style="background-color: #d4e8c1">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+          <img src="/logo.png" alt="Logo" width="80" height="80" class="d-inline-block align-text-top" />
+        </a>
+        <ul class="navbar-nav justify-content-center" style="padding-right: 20px">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/HTML/logIn.html">Log-in</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
     <div
       class="container justify-content-center allign-items-center max-width: 200px"
       style="height: fit-content; display: flex; align-items: center; justify-content: center; margin-top: 10%; border-radius: 5%; background-color: rgb(141, 184, 124); max-width: 600px; padding: 1%"
@@ -21,7 +33,7 @@
         <div class="col-6">Favourite dish</div>
         <div class="col-6">
           <h4>SIGN-UP</h4>
-          <form id="formRegistration" method="GET" action="home.html" onsubmit="return checkRegistration()">
+          <form id="formRegistration" method="GET" action="/HTML/home.html" onsubmit="return checkRegistration()">
             <div class="form-floating mb-3">
               <input type="Username" class="form-control" id="username" placeholder="Uesrname" />
               <label for="floatingInput">Username</label>
