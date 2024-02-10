@@ -22,8 +22,19 @@ function toggle_Password() {
     }
 
     document.getElementById("password").value = "";
-    // var error = document.getElementById("error");
-    // error.innerHTML = "Username and/or password not correct, retry<br>";
+    const alertPlaceholder = document.getElementById('liveAlertPlaceholder');
+    const showAlert = () => {
+      const message = "Username and/or password not correct, please retry";
+      const alertHTML = `
+        <div class="alert alert-danger alert-dismissible" role="alert">
+          ${message}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      `;
+      alertPlaceholder.innerHTML = alertHTML;
+    };
+
+    showAlert();
     return false;
 }
 
