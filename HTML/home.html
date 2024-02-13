@@ -31,8 +31,9 @@
           <li class="nav-item dropdown">
             <a class="nav-link d-sm-flex align-items-sm-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="/account.png" height="38" width="65" />
+              <p id="userNav" style="padding-top: 17px; padding-right: 10px;"></p>
             </a>
-            <ul class="dropdown-menu" style="min-width: auto">
+            <ul class="dropdown-menu" style="min-width: auto;">
               <li>
                 <a class="dropdown-item" href="/HTML/account.html">Account</a>
               </li>
@@ -63,5 +64,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
+    <script>document.getElementById("userNav").innerHTML += sessionStorage.getItem("loggedUser"); </script>
   </body>
 </html>
