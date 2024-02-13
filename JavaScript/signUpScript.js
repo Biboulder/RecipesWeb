@@ -179,6 +179,7 @@ function checkRegistration() {
     confirmPasswordBox.style.borderColor = "";
   }
 
+  console.log(result)
 
   //if all checks pass, then create the user e save in local
   if (result == true) {

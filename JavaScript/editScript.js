@@ -105,13 +105,20 @@ function read_object_from_local_storage(key) {
       emailBoxCheck = false;
     }
   
+    // makes an array with all users except the one logged and retrive all the data of the logged user
+    const loggedUsername = sessionStorage.getItem('loggedUser');
+    var users = read_object_from_local_storage("users");
+    const loggedUser = users.find(user => user.username === loggedUsername);
+    var registeredusers = users.filter(function (single) {
+      return single.username !== loggedUsername;
+    });
+
     // checks doubles in usernames
     if (result == true) {
-      var names = read_object_from_local_storage("users");
       usernameErroor.innerHTML = "";
-      if (names != null) {
-        for (i = 0; i < names.length; i++) {
-          if (names[i].username == username) {
+      if (registeredusers != null) {
+        for (i = 0; i < registeredusers.length; i++) {
+          if (registeredusers[i].username == username) {
             usernameErroor.innerHTML += "Username already in use.<br>";
             result = false;
             usernameBoxCheck = false;
@@ -123,11 +130,10 @@ function read_object_from_local_storage(key) {
   
     // checks doubles in emails
     if (result == true) {
-      var emails = read_object_from_local_storage("users");
       emailError.innerHTML = "";
-      if (emails != null) {
-        for (i = 0; i < emails.length; i++) {
-          if (emails[i].email == email) {
+      if (registeredusers != null) {
+        for (i = 0; i < registeredusers.length; i++) {
+          if (registeredusers[i].email == email) {
             emailError.innerHTML = "Email already in use.<br>";
             result = false;
             emailBoxCheck = false;
@@ -159,18 +165,14 @@ function read_object_from_local_storage(key) {
     }
   
   
-    // //if all checks pass, then create the user e save in local
-    // if (result == true) {
-    //   const user = {
-    //     username: username,
-    //     email: email,
-    //     password: password,
-    //     // favourite_dish
-    //   };
-    //   save_In_Local("users", user);
-    //   sessionStorage.setItem("loggedUser", username);
-    // }
-  console.log("end")
+    //if all checks pass, then create the user e save in local
+    if (result == true) {
+      loggedUser.username = username;
+      loggedUser.email = email;
+      loggedUser.password = password;
+      localStorage.setItem('users', JSON.stringify(users));
+      sessionStorage.setItem('loggedUser', username);
+    }
     return result;
   }
   

@@ -22,6 +22,7 @@ function fetchRandomMeals(n) {
   return Promise.all(promises);
 }
 
+// Function to fetch meals by category
 function fetchMealsByCategory(category) {
   const url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`
   return fetch(url)
@@ -37,6 +38,7 @@ function fetchMealsByCategory(category) {
     .catch((error) => { console.error(`Error fetching meals for category ${category}:`, error);});
 }
 
+// Function to fetch meal by name
 function fectMealByNames(mealName) {
   const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
   return fetch(url)
@@ -45,9 +47,14 @@ function fectMealByNames(mealName) {
     .catch((error) => console.error(`Error fetching meal by name ${mealName}:`, error));
 }
 
+// Function to search meal by name
 function searchMeal() {
   const mealName = document.getElementById("search input").value;
   fectMealByNames(mealName).then((meals) => {
+    if (meals === null) {
+      displayAlert();
+      return;
+    }
     const mealCardsRow = document.getElementById("mealCardsRow");
     mealCardsRow.innerHTML = "";
     meals.forEach((meal) => {
@@ -56,6 +63,15 @@ function searchMeal() {
     });
   });
 
+}
+
+function displayAlert() {
+  const alert = document.getElementById("mealCardsRow");
+  alert.innerHTML = `
+    <div class="container justify-content-centre" style="padding-top: 200px; text-align: centre">
+        <h5>No meals found, please retry</h5>
+    </div>
+  `;
 }
 
 function displayRandomCards() {
