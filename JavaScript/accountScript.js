@@ -44,7 +44,47 @@ var loggedUser = sessionStorage.getItem("loggedUser")
   write_object_to_local_storage([], "users")
   write_object_to_local_storage(cont_Local, "users")
   sessionStorage.clear("loggedUser")
-  //sessionStorage.clear("favDish")
   window.location.href = "/HTML/signUp.html"
 }
 
+// Function to display favourite meal 
+function displayFavouriteMeal() {
+  var userName = sessionStorage.getItem("loggedUser")
+  var users = read_object_from_local_storage("users")
+  var loggedUser = users.find(function (user) {
+    return user.username === userName
+  })
+  var mealContainer = document.getElementById("favouriteMeal")
+  mealContainer.innerHTML = ""
+  fetchMealById(loggedUser.favMeal).then((meal) => {
+    mealContainer.innerHTML = createMealCard(meal)
+  })
+  }
+
+// Function to create a meal card
+function createMealCard(meal) {
+  const card = `
+    <div class="col mb-4">
+      <div class="card h-100 shadow" style="background-color: #f1da86; border-radius: 15px">
+        <img src="${meal.strMealThumb}" class="card-img-top" style="width: 80%; height: auto; object-fit: cover; display: block; margin: auto; margin-top: 25px; border-radius: 15px;" alt="${meal.strMeal}">
+        <div class="card-body" style="background-color: #f1da86; border-radius: 15px">
+          <h4 class="card-title">${meal.strMeal}</h4>
+        </div>
+      </div>
+    </div>
+  `
+  return card
+}
+
+// Function to display meal by ID
+function fetchMealById(mealId) {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => data.meals[0])
+    .catch((error) => console.error(`Error fetching meal by ID ${mealId}:`, error))
+}
+
+window.onload = () =>{
+displayFavouriteMeal()
+}

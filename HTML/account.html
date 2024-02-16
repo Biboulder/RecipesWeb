@@ -20,10 +20,10 @@
         </a>
         <ul class="navbar-nav justify-content-center">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+            <a class="nav-link" href="home.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Saved Meals</a>
+            <a class="nav-link" href="savedMeals.html">Saved Meals</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto" style="padding-right: 20px">
@@ -32,7 +32,7 @@
               <img src="/account.png" height="38" width="65" />
               <p id="userNav" style="padding-top: 17px; padding-right: 10px"></p>
             </a>
-            <ul class="dropdown-menu" style="min-width: auto">
+            <ul class="dropdown-menu" style="min-width: 140px">
               <li>
                 <a class="dropdown-item" href="#">Account</a>
               </li>
@@ -45,19 +45,20 @@
       </div>
     </nav>
     <div
-      class="container justify-content-center allign-items-center max-width: 900px"
-      style="height: fit-content; display: flex; align-items: center; justify-content: center; margin-top: 10%; border-radius: 5%; background-color: rgb(141, 184, 124); max-width: 900px; padding: 1%"
+      class=" shadow container justify-content-center allign-items-center max-width: 900px"
+      style="height: fit-content; display: flex; align-items: center; justify-content: center; margin-top: 10%; border-radius: 20px; background-color: rgb(141, 184, 124); max-width: 900px; padding: 1%"
     >
-      <div class="row">
-        <div class="row" style="margin-left: 5%; margin-bottom: 10px;">
-          <h2 class="display-6">ACCOUNT</h2>
+      <div class="row justify-content-center">
+        <div class="row" style="margin-bottom: 10px;">
+          <h2 class="display-6" style="text-align: center;">ACCOUNT</h2>
         </div>
         <div class="col-6">
-          favourite
+          <div class="row" id="favouriteMeal" style="margin-left: 5%;">
+          </div>
         </div>
         <div class="col-6">
           <div class="container">
-            <div style="margin-right: 5%; background-color: #f1da86; padding: 20px; border-radius: 10px;">
+            <div class="shadow" style="margin-right: 5%; background-color: #f1da86; padding: 20px; border-radius: 10px;">
               <h6>
                 Username: <br>
               </h6>
@@ -73,7 +74,7 @@
         <div class="row" style="padding-top: 20px">
           <div class="d-flex justify-content-between">
             <button type="button" class="btn btn-danger" onclick="delete_Acc()">Delete account</button>
-            <a type="button" class="btn" style="background-color: #f1da86" href="editAccount.html">Edit account</a>
+            <a type="button" class="btn" style="background-color: #ed8a3f" href="editAccount.html">Edit account</a>
           </div>
         </div>
       </div>

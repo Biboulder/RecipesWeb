@@ -1,3 +1,15 @@
+//reads from local the string and parse it to an object
+function read_object_from_local_storage(key) {
+  var item = window.localStorage.getItem(key);
+  return JSON.parse(item);
+}
+
+//converts the object to a string and save it in local
+function write_object_to_local_storage(obj, key) {
+  var item = JSON.stringify(obj);
+  window.localStorage.setItem(key, item);
+}
+
 // Make an HTTP GET request to fetch categories data
 function fetchCategories() {
   const url = "https://www.themealdb.com/api/json/v1/1/categories.php"
@@ -68,6 +80,7 @@ function fetchMealById(mealId) {
 // Function to search meal by name
 function searchMeal() {
   const mealName = document.getElementById("search input").value
+  document.getElementById("search input").value = ""
   fetchMealByNames(mealName).then((meals) => {
     if (meals === null) {
       displayAlert()
@@ -152,13 +165,16 @@ function createMealCard(meal) {
 
 // Function to display meal info in a modal
 function displayMealInfo(meal) {
+  textButton(meal.idMeal)
   const mealName = document.getElementById("mealName")
   const mealImage = document.getElementById("mealImage")
   const mealInstructions = document.getElementById("mealInstructions")
   const mealIngredients = document.getElementById("mealIngredients")
   mealName.textContent = meal.strMeal
+  // Save the meal ID in a data-* attribute
+  mealName.dataset.mealId = meal.idMeal
   mealImage.src = meal.strMealThumb
-  mealInstructions.textContent = meal.strInstructions
+  mealInstructions.innerHTML = meal.strInstructions
   mealIngredients.innerHTML = ""
   for (let i = 1; i <= 20; i++) {
     const ingredient = meal[`strIngredient${i}`]
@@ -169,6 +185,36 @@ function displayMealInfo(meal) {
     const listItem = document.createElement("li")
     listItem.textContent = `${ingredient} - ${measure}`
     mealIngredients.appendChild(listItem)
+  }
+}
+
+// Function to save meals
+function saveMeal() {
+  const mealButton = document.getElementById("mealButton")
+  const userName = sessionStorage.getItem("loggedUser")
+  const users = read_object_from_local_storage("users")
+  const loggedUser = users.find((user) => user.username === userName)
+  const mealId = mealName.dataset.mealId
+  if (loggedUser.savedMeals.includes(mealId)) {
+    loggedUser.savedMeals = loggedUser.savedMeals.filter((id) => id !== mealId)
+    mealButton.textContent = "Save"
+  } else {
+    loggedUser.savedMeals.push(mealId)
+    mealButton.textContent = "Unsave"
+  }
+  localStorage.setItem('users', JSON.stringify(users));
+}
+
+// Function to change the text of the button
+function textButton(mealId) {
+  const userName = sessionStorage.getItem("loggedUser")
+  const users = read_object_from_local_storage("users")
+  const loggedUser = users.find((user) => user.username === userName)
+  const mealButton = document.getElementById("mealButton")
+  if (loggedUser.savedMeals.includes(mealId)) {
+    mealButton.textContent = "Unsave"
+  } else {
+    mealButton.textContent = "Save"
   }
 }
 

@@ -249,7 +249,7 @@ function searchMeal() {
       listItem.classList.add("list-group-item-action");
       groupItem.appendChild(listItem);
       listItem.addEventListener("click", () => {
-        favMeal = meal.strMeal;
+        favMeal = meal.idMeal;
         const card = createMealCard(meal);
         mealNamesList.innerHTML = card;
       });

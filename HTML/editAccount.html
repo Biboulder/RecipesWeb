@@ -11,7 +11,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
-  <script src="../JavaScript/editScript.js"></script>
+    <script src="../JavaScript/editScript.js"></script>
   </head>
   <body>
     <nav class="navbar navbar-expand-sm" style="background-color: #d4e8c1">
@@ -21,17 +21,17 @@
         </a>
         <ul class="navbar-nav justify-content-center">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="home.html">Home</a>
+            <a class="nav-link" href="home.html">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Saved dishes</a>
+            <a class="nav-link" href="savedMeals.html">Saved Meals</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto" style="padding-right: 20px">
           <li class="nav-item dropdown">
             <a class="nav-link d-sm-flex align-items-sm-center dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="/account.png" height="38" width="65" />
-              <p id="userNav" style="padding-top: 17px; padding-right: 10px;"></p>
+              <p id="userNav" style="padding-top: 17px; padding-right: 10px"></p>
             </a>
             <ul class="dropdown-menu" style="min-width: auto">
               <li>
@@ -47,40 +47,60 @@
     </nav>
     <div
       class="container justify-content-center allign-items-center max-width: 900px"
-      style="height: fit-content; display: flex; align-items: center; justify-content: center; margin-top: 10%; border-radius: 5%; background-color: rgb(141, 184, 124); max-width: 900px; padding: 1%"
+      style="
+        height: fit-content;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 10%;
+        border-radius: 20px;
+        background-color: rgb(141, 184, 124);
+        max-width: 900px;
+        padding: 1%;
+      "
     >
-      <div class="col-6">favourite dish</div>
-      
-      <div class="col-6">
-        <form id="formRegistration" method="GET" action="/HTML/account.html" onsubmit="return checkEdit()">
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default ">Username</span>
-            <input type="text" class="form-control"  id="username" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+      <div class="row">
+        <div class="row" style="margin-bottom: 10px;">
+          <h2 class="display-6" style="text-align: center;">EDIT ACCOUNT</h2>
+        <div class="col-6">
+          <div class="d-flex justify-content-between" style="margin-left: 5%; padding-bottom: 20px">
+            <input class="form-control me-2" type="text" placeholder="Search a recipe" aria-label="Search" id="search input" />
+            <button class="btn" onclick="searchMeal()" style="background-color: #ed8a3f">Search</button>
           </div>
-          <div class="container" id="usernameError" style="color: red; font-size: 12px; padding-bottom: 10px;"></div>
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">E-mail</span>
-            <input type="text" class="form-control" id="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-          </div>
-          <div class="container" id="emailError" style="color: red; font-size: 12px;padding-bottom: 10px;"></div>
-          <div class="input-group mb-3">
-            <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
-            <input type="password" id="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
-            <button class="btn" type="button" id="togglePasswordButton" onclick="toggle_Password()" style="background-color: #d4e8c1">
-              <i class="bi bi-eye-slash" id="togglePassword"></i>
-            </button>
-          </div>
-          <div class="container" id="pswdError" style="color: red; font-size: 12px; padding-bottom: 10px;"></div>
-          <button type="submit" class="btn btn" style="background-color: #ed8a3f">Confirm</button>
+          <div class="container" id="mealsNames" style="height: 350px; margin-left: 5%; overflow: auto; border-radius: 20px"></div>
+        </div>
+        <div class="col-6">
+          <form id="formRegistration" method="GET" action="/HTML/account.html" onsubmit="return checkEdit()">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default ">Username</span>
+              <input type="text" class="form-control" id="username" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            </div>
+            <div class="container" id="usernameError" style="color: red; font-size: 12px; padding-bottom: 10px"></div>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">E-mail</span>
+              <input type="text" class="form-control" id="email" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+            </div>
+            <div class="container" id="emailError" style="color: red; font-size: 12px; padding-bottom: 10px"></div>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="inputGroup-sizing-default">Password</span>
+              <input type="password" id="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+              <button class="btn" type="button" id="togglePasswordButton" onclick="toggle_Password()" style="background-color: #d4e8c1">
+                <i class="bi bi-eye-slash" id="togglePassword"></i>
+              </button>
+            </div>
+            <div class="container" id="pswdError" style="color: red; font-size: 12px; padding-bottom: 10px"></div>
+            <button type="submit" class="btn btn" style="background-color: #ed8a3f">Confirm</button>
+          </form>
         </div>
       </div>
-        </form>
-        
+    </div>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script>document.getElementById("userNav").innerHTML += sessionStorage.getItem("loggedUser"); </script>
+    <script>
+      document.getElementById("userNav").innerHTML += sessionStorage.getItem("loggedUser")
+    </script>
   </body>
 </html>
