@@ -47,3 +47,4 @@ var loggedUser = sessionStorage.getItem("loggedUser")
   //sessionStorage.clear("favDish")
   window.location.href = "/HTML/signUp.html"
 }
+

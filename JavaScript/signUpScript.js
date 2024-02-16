@@ -9,6 +9,8 @@ function write_object_to_local_storage(obj, key) {
   window.localStorage.setItem(key, item);
 }
 
+var favMeal = "";
+
 function checkRegistration() {
   var result = true;
 
@@ -119,6 +121,13 @@ function checkRegistration() {
     emailBoxCheck = false;
   }
 
+  if (favMeal == "") {
+    const divMeal =  document.getElementById("mealsNames");
+    divMeal.style.color = "red";
+    divMeal.innerHTML = "Please select a favourite dish";
+    result = false;
+  }
+
   // checks doubles in usernames
   if (result == true) {
     var names = read_object_from_local_storage("users");
@@ -187,7 +196,8 @@ function checkRegistration() {
       username: username,
       email: email,
       password: password,
-      // favourite_dish
+      favMeal: favMeal,
+      savedMeals: []
     };
     save_In_Local("users", user);
     sessionStorage.setItem("loggedUser", username);
@@ -217,4 +227,66 @@ function save_In_Local(key, obj) {
   arr.push(obj);
 
   write_object_to_local_storage(arr, key);
+}
+
+// Function to search meal by name
+function searchMeal() {
+  const mealName = document.getElementById("search input").value;
+  fetchMealByNames(mealName).then((meals) => {
+    if (meals === null) {
+      displayAlert();
+      return;
+    }
+    const mealNamesList = document.getElementById("mealsNames");
+    mealNamesList.innerHTML = "";
+    const groupItem = document.createElement("ul");
+    groupItem.classList.add("list-group");
+    mealNamesList.appendChild(groupItem);
+    meals.forEach((meal) => {
+      const listItem = document.createElement("li");
+      listItem.textContent = meal.strMeal;
+      listItem.classList.add("list-group-item");
+      listItem.classList.add("list-group-item-action");
+      groupItem.appendChild(listItem);
+      listItem.addEventListener("click", () => {
+        favMeal = meal.strMeal;
+        const card = createMealCard(meal);
+        mealNamesList.innerHTML = card;
+      });
+    });
+  });
+
+}
+
+// Function to fetch meal by name
+function fetchMealByNames(mealName) {
+  const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealName}`
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => data.meals)
+    .catch((error) => console.error(`Error fetching meal by name ${mealName}:`, error));
+}
+
+// Function to create a meal card
+function createMealCard(meal) {
+  const card = `
+    <div class="col mb-4">
+      <div class="card h-100 shadow" style="background-color: #f1da86; border-radius: 15px">
+        <img src="${meal.strMealThumb}" class="card-img-top" style="width: 80%; height: auto; object-fit: cover; display: block; margin: auto; margin-top: 25px; border-radius: 15px;" alt="${meal.strMeal}">
+        <div class="card-body" style="background-color: #f1da86; border-radius: 15px">
+          <h4 class="card-title">${meal.strMeal}</h4>
+        </div>
+      </div>
+    </div>
+  `
+  return card
+}
+
+function displayAlert() {
+  const alert = document.getElementById("mealsNames");
+  alert.innerHTML = `
+    <div class="container justify-content-centre" style="padding-top: 100px; text-align: centre">
+        <h5>No meals found, please retry</h5>
+    </div>
+  `;
 }
