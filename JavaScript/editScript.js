@@ -9,6 +9,8 @@ function read_object_from_local_storage(key) {
     window.localStorage.setItem(key, item);
   }
 
+  favMeal = "";
+
   function checkEdit() {
     var result = true;
   
@@ -170,6 +172,7 @@ function read_object_from_local_storage(key) {
       loggedUser.username = username;
       loggedUser.email = email;
       loggedUser.password = password;
+      loggedUser.favMeal = favMeal;
       localStorage.setItem('users', JSON.stringify(users));
       sessionStorage.setItem('loggedUser', username);
     }
@@ -203,8 +206,12 @@ function read_object_from_local_storage(key) {
     const loggedUsername = sessionStorage.getItem('loggedUser');
     var users = read_object_from_local_storage("users");
     const loggedUser = users.find(user => user.username === loggedUsername);
-    document.getElementById("username").placeholder = loggedUser.username;
-    document.getElementById("email").placeholder = loggedUser.email;
+    document.getElementById("username").value = loggedUser.username;
+    document.getElementById("email").value = loggedUser.email;
+    fetchMealById(loggedUser.favMeal).then((meal) => {
+      document.getElementById("mealsNames").innerHTML = createMealCard(meal);
+      favMeal = meal.idMeal;
+    });
   }
 
   window.onload = () => {
@@ -249,6 +256,15 @@ function fetchMealByNames(mealName) {
     .catch((error) => console.error(`Error fetching meal by name ${mealName}:`, error));
 }
 
+// Function to display meal by ID
+function fetchMealById(mealId) {
+  const url = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${mealId}`
+  return fetch(url)
+    .then((response) => response.json())
+    .then((data) => data.meals[0])
+    .catch((error) => console.error(`Error fetching meal by ID ${mealId}:`, error))
+}
+
 // Function to create a meal card
 function createMealCard(meal) {
   const card = `
@@ -256,7 +272,7 @@ function createMealCard(meal) {
       <div class="card h-100 shadow" style="background-color: #f1da86; border-radius: 15px">
         <img src="${meal.strMealThumb}" class="card-img-top" style="width: 80%; height: auto; object-fit: cover; display: block; margin: auto; margin-top: 25px; border-radius: 15px;" alt="${meal.strMeal}">
         <div class="card-body" style="background-color: #f1da86; border-radius: 15px">
-          <h4 class="card-title">${meal.strMeal}</h4>
+          <h5 class="card-title">${meal.strMeal}</h5>
         </div>
       </div>
     </div>

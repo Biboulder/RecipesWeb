@@ -218,6 +218,29 @@ function textButton(mealId) {
   }
 }
 
+
+// function to save a review
+function saveReview() {
+  const reviewDate = document.getElementById('reviewDate').value;
+  const difficultyRating = Array.from(document.querySelectorAll('input[name="difficulty"]')).find(radio => radio.checked).value;
+  const tasteRating = Array.from(document.querySelectorAll('input[name="taste"]')).find(radio => radio.checked).value;
+  const username = sessionStorage.getItem('loggedUser');
+  const mealId = document.getElementById('mealName').dataset.mealId;
+  const review = {
+    username,
+    mealId,
+    reviewDate,
+    difficultyRating,
+    tasteRating
+  };
+  let reviews = JSON.parse(localStorage.getItem('reviews'));
+  if (!reviews) {
+    reviews = [];
+  }
+  reviews.push(review);
+  localStorage.setItem('reviews', JSON.stringify(reviews));
+}
+
 // Fetch categories and create buttons when the page loads
 window.onload = () => {
   fetchCategories().then((categories) => {

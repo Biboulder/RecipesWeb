@@ -1,0 +1,102 @@
+/* .difficulty:not(:checked) > input {
+    position: absolute;
+    appearance: none;
+  }
+  
+  .difficulty:not(:checked) > label {
+    float: right;
+    cursor: pointer;
+    font-size: 50px;
+    color: #666;
+  }
+  
+  .difficulty:not(:checked) > label:before {
+    content: '★';
+  }
+  
+  .difficulty > input:checked + label:hover,
+  .difficulty > input:checked + label:hover ~ label,
+  .difficulty > input:checked ~ label:hover,
+  .difficulty > input:checked ~ label:hover ~ label,
+  .difficulty > label:hover ~ input:checked ~ label {
+    color: #e58e09;
+  }
+  
+  .difficulty:not(:checked) > label:hover,
+  .difficulty:not(:checked) > label:hover ~ label {
+    color: #ff9e0b;
+  }
+  
+  .difficulty > input:checked ~ label {
+    color: #ffa723;
+  }
+  
+  .taste:not(:checked) > input {
+    position: absolute;
+    appearance: none;
+  }
+  
+  .taste:not(:checked) > label {
+    float: right;
+    cursor: pointer;
+    font-size: 50px;
+    color: #666;
+  }
+  
+  .taste:not(:checked) > label:before {
+    content: '★';
+  }
+  
+  .taste > input:checked + label:hover,
+  .taste > input:checked + label:hover ~ label,
+  .taste > input:checked ~ label:hover,
+  .taste > input:checked ~ label:hover ~ label,
+  .taste > label:hover ~ input:checked ~ label {
+    color: #e58e09;
+  }
+  
+  .taste:not(:checked) > label:hover,
+  .taste:not(:checked) > label:hover ~ label {
+    color: #ff9e0b;
+  }
+  
+  .taste > input:checked ~ label {
+    color: #ffa723;
+  }
+ */
+
+
+ .rating:not(:checked) > input {
+  position: absolute;
+  appearance: none;
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  cursor: pointer;
+  font-size: 50px;
+  color: #666;
+}
+
+.rating:not(:checked) > label:before {
+  content: '★';
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #e58e09;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #ff9e0b;
+}
+
+.rating > input:checked ~ label {
+  color: #ffa723;
+}
+
+  

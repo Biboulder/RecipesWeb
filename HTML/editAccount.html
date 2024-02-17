@@ -46,28 +46,28 @@
       </div>
     </nav>
     <div
-      class="container justify-content-center allign-items-center max-width: 900px"
+      class="container justify-content-center allign-items-center"
       style="
         height: fit-content;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 10%;
+        margin-top: 7%;
         border-radius: 20px;
         background-color: rgb(141, 184, 124);
-        max-width: 900px;
+        max-width: 700px;
         padding: 1%;
       "
     >
       <div class="row">
         <div class="row" style="margin-bottom: 10px;">
-          <h2 class="display-6" style="text-align: center;">EDIT ACCOUNT</h2>
+          <h2 class="display-6" style="text-align: center; margin-bottom: 20px;">EDIT ACCOUNT</h2>
         <div class="col-6">
           <div class="d-flex justify-content-between" style="margin-left: 5%; padding-bottom: 20px">
             <input class="form-control me-2" type="text" placeholder="Search a recipe" aria-label="Search" id="search input" />
             <button class="btn" onclick="searchMeal()" style="background-color: #ed8a3f">Search</button>
           </div>
-          <div class="container" id="mealsNames" style="height: 350px; margin-left: 5%; overflow: auto; border-radius: 20px"></div>
+          <div class="container" id="mealsNames" style="height: 400px; overflow: auto; border-radius: 20px; padding-left: 20px;"></div>
         </div>
         <div class="col-6">
           <form id="formRegistration" method="GET" action="/HTML/account.html" onsubmit="return checkEdit()">
@@ -89,7 +89,7 @@
               </button>
             </div>
             <div class="container" id="pswdError" style="color: red; font-size: 12px; padding-bottom: 10px"></div>
-            <button type="submit" class="btn btn" style="background-color: #ed8a3f">Confirm</button>
+            <button type="submit" class="btn btn-lg" style="background-color: #ed8a3f;">Confirm</button>
           </form>
         </div>
       </div>

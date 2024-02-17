@@ -121,6 +121,7 @@ function checkRegistration() {
     emailBoxCheck = false;
   }
 
+  // Favourite meal error
   if (favMeal == "") {
     const divMeal =  document.getElementById("mealsNames");
     divMeal.style.color = "red";
@@ -187,8 +188,6 @@ function checkRegistration() {
   } else {
     confirmPasswordBox.style.borderColor = "";
   }
-
-  console.log(result)
 
   //if all checks pass, then create the user e save in local
   if (result == true) {
@@ -274,7 +273,7 @@ function createMealCard(meal) {
       <div class="card h-100 shadow" style="background-color: #f1da86; border-radius: 15px">
         <img src="${meal.strMealThumb}" class="card-img-top" style="width: 80%; height: auto; object-fit: cover; display: block; margin: auto; margin-top: 25px; border-radius: 15px;" alt="${meal.strMeal}">
         <div class="card-body" style="background-color: #f1da86; border-radius: 15px">
-          <h4 class="card-title">${meal.strMeal}</h4>
+          <h5 class="card-title">${meal.strMeal}</h5>
         </div>
       </div>
     </div>
