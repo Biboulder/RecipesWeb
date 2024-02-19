@@ -25,7 +25,7 @@
             <a class="nav-link active" aria-current="page" href="home.html"><h4 style="color: #ed8a3f;"><b>Home</b></h4></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="savedMeals.html" style="margin-top: 5px;">Saved Meals</a>
+            <a id="saved" class="nav-link" href="savedMeals.html" style="margin-top: 5px;" data-bs-toggle="" data-bs-target="">Saved Meals</a>
           </li>
         </ul>
         <ul class="navbar-nav ms-auto" style="padding-right: 20px">
@@ -36,7 +36,7 @@
             </a>
             <ul class="dropdown-menu" style="min-width: 140px">
               <li>
-                <a class="dropdown-item" href="/HTML/account.html">Account</a>
+                <a id="account" class="dropdown-item" href="/HTML/account.html">Account</a>
               </li>
               <li>
                 <a class="dropdown-item" href="logIn.html" style="color: red" onclick="sessionStorage.clear('loggedUser')">Quit</a>
@@ -65,9 +65,6 @@
       integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
       crossorigin="anonymous"
     ></script>
-    <script>
-      document.getElementById("userNav").innerHTML += sessionStorage.getItem("loggedUser")
-    </script>
     <!-- Meal info modal -->
     <div class="modal fade justify-content-center" id="mealInfo">
       <div class=" modal-xl modal-dialog modal-dialog-scrollable">
@@ -129,11 +126,10 @@
           <div class="modal-body">
             <div class="container">
             <div class="row">
-              
-              <input type="date" id="reviewDate" class="form-control" style="margin-bottom: 10px" />
+              <input type="date" id="reviewDate" class="form-control" style="margin-bottom: 10px"/>
             </div>
-            <div class="row" style="padding-right: 100px;">
-              <p>Difficulty</p>
+            <div class="row" >
+              <p class="lead">Difficulty</p>
               <div class="rating">
                 <input value="5" name="difficulty" id="diff_star5" type="radio">
                 <label for="diff_star5"></label>
@@ -166,6 +162,22 @@
           </div>
           <div class="modal-footer">
             <button class="btn btn-secondary" data-bs-target="#mealInfo" onclick="saveReview()" data-bs-toggle="modal" style="background-color: #ed8a3f;">Save review</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- LogIn modal -->
+    <div class="modal fade" id="LoginModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Log-In first!</h1>
+          </div>
+          <div class="modal-body" id="modalBody">
+            Sorry, this operation is not avaiable for the guests, <a href="/HTML/logIn.html"> Log-In</a> to have access to it!
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>

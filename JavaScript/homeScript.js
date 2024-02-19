@@ -1,13 +1,13 @@
 //reads from local the string and parse it to an object
 function read_object_from_local_storage(key) {
-  var item = window.localStorage.getItem(key);
-  return JSON.parse(item);
+  var item = window.localStorage.getItem(key)
+  return JSON.parse(item)
 }
 
 //converts the object to a string and save it in local
 function write_object_to_local_storage(obj, key) {
-  var item = JSON.stringify(obj);
-  window.localStorage.setItem(key, item);
+  var item = JSON.stringify(obj)
+  window.localStorage.setItem(key, item)
 }
 
 // Make an HTTP GET request to fetch categories data
@@ -79,9 +79,9 @@ function fetchMealById(mealId) {
 
 // Function to fetch reviews
 function fetchReviews(mealId) {
-  const reviews = JSON.parse(localStorage.getItem('reviews'));
-  const mealReviews = reviews.filter(review => review.mealId === mealId);
-  return mealReviews;
+  const reviews = JSON.parse(localStorage.getItem("reviews"))
+  const mealReviews = reviews.filter((review) => review.mealId === mealId)
+  return mealReviews
 }
 
 // Function to fetch notes
@@ -97,7 +97,6 @@ function fetchNote(mealID) {
   }
   return mealNote[0]
 }
-
 
 // Function to search meal by name
 function searchMeal() {
@@ -211,7 +210,6 @@ function displayMealInfo(meal) {
   }
   reviewsRow.innerHTML = ""
   fetchReviews(meal.idMeal).forEach((review) => {
-
     const reviewCard = createReviewCard(review)
     reviewsRow.appendChild(reviewCard)
   })
@@ -232,75 +230,80 @@ function saveMeal() {
   if (loggedUser.savedMeals.includes(mealId)) {
     loggedUser.savedMeals = loggedUser.savedMeals.filter((id) => id !== mealId)
     mealButton.textContent = "Save"
-    const mealNote = fetchNote(mealId);
+    const mealNote = fetchNote(mealId)
     if (mealNote) {
       notes = JSON.parse(localStorage.getItem("notes"))
-      notes = notes.filter(note => note.mealId !== mealNote.mealId || note.userName !== mealNote.userName);
+      notes = notes.filter((note) => note.mealId !== mealNote.mealId || note.userName !== mealNote.userName)
       localStorage.setItem("notes", JSON.stringify(notes))
     }
   } else {
     loggedUser.savedMeals.push(mealId)
     mealButton.textContent = "Unsave"
   }
-  localStorage.setItem('users', JSON.stringify(users));
+  localStorage.setItem("users", JSON.stringify(users))
 }
 
 // Function to change the text of the button
 function textButton(mealId) {
   const userName = sessionStorage.getItem("loggedUser")
-  const users = read_object_from_local_storage("users")
-  const loggedUser = users.find((user) => user.username === userName)
   const mealButton = document.getElementById("mealButton")
-  if (loggedUser.savedMeals.includes(mealId)) {
-    mealButton.textContent = "Unsave"
-  } else {
+  console.log(userName)
+  if (userName === "") {
     mealButton.textContent = "Save"
+  } else {
+    const users = read_object_from_local_storage("users")
+    const loggedUser = users.find((user) => user.username === userName)
+    if (loggedUser.savedMeals.includes(mealId)) {
+      mealButton.textContent = "Unsave"
+    } else {
+      mealButton.textContent = "Save"
+    }
   }
 }
 
 // function to save a review
 function saveReview() {
-  const reviewDate = document.getElementById('reviewDate').value;
-  const difficultyRating = Array.from(document.querySelectorAll('input[name="difficulty"]')).find(radio => radio.checked).value;
-  const tasteRating = Array.from(document.querySelectorAll('input[name="taste"]')).find(radio => radio.checked).value;
-  const username = sessionStorage.getItem('loggedUser');
-  const mealId = document.getElementById('mealName').dataset.mealId;
+  const reviewDate = document.getElementById("reviewDate").value
+  const difficultyRating = Array.from(document.querySelectorAll('input[name="difficulty"]')).find((radio) => radio.checked).value
+  const tasteRating = Array.from(document.querySelectorAll('input[name="taste"]')).find((radio) => radio.checked).value
+  const username = sessionStorage.getItem("loggedUser")
+  const mealId = document.getElementById("mealName").dataset.mealId
   const review = {
     username,
     mealId,
     reviewDate,
     difficultyRating,
-    tasteRating
-  };
-  let reviews = JSON.parse(localStorage.getItem('reviews'));
-  if (!reviews) {
-    reviews = [];
+    tasteRating,
   }
-  reviews.push(review);
-  localStorage.setItem('reviews', JSON.stringify(reviews));
+  let reviews = JSON.parse(localStorage.getItem("reviews"))
+  if (!reviews) {
+    reviews = []
+  }
+  reviews.push(review)
+  localStorage.setItem("reviews", JSON.stringify(reviews))
   //location.reload();
 }
 
 // Function to create a star rating element
 function createStarRating(rating) {
-  const ratingElement = document.createElement('div');
-  ratingElement.className = 'rating';
-  ratingElement.style.marginBottom = '10px';
-  ratingElement.style.marginLeft = '20px';
+  const ratingElement = document.createElement("div")
+  ratingElement.className = "rating"
+  ratingElement.style.marginBottom = "10px"
+  ratingElement.style.marginLeft = "20px"
   for (let i = 1; i <= 5; i++) {
-    const icon = document.createElement('i');
-    icon.className = `bi-star${i <= rating ? '-fill' : ''}`;
-    icon.style.marginRight = '5px';
-    icon.style.fontSize = '1.5rem';
-    ratingElement.appendChild(icon);
+    const icon = document.createElement("i")
+    icon.className = `bi-star${i <= rating ? "-fill" : ""}`
+    icon.style.marginRight = "5px"
+    icon.style.fontSize = "1.5rem"
+    ratingElement.appendChild(icon)
   }
-  return ratingElement;
+  return ratingElement
 }
 
 // Function to create a review card
 function createReviewCard(review) {
-  const cardElement = document.createElement('div');
-  cardElement.classList.add('col', 'mb-4');
+  const cardElement = document.createElement("div")
+  cardElement.classList.add("col", "mb-4")
   cardElement.innerHTML = `
     <div class="card h-100 shadow" style="background-color: #D4E8C1; border-radius: 15px">
       <div class="card-body" style="background-color: #D4E8C1; border-radius: 15px">
@@ -308,28 +311,63 @@ function createReviewCard(review) {
         <p class="card-text">Preparation date: ${review.reviewDate}</p>
       </div>
     </div>
-  `;
+  `
 
-  const difficultyRating = createStarRating(review.difficultyRating);
-  const tasteRating = createStarRating(review.tasteRating);
-  const difficultyRow = document.createElement('div');
-  difficultyRow.className = 'd-flex align-items-center';
-  difficultyRow.innerHTML = '<p class="mb-0 mr-2">Difficulty:</p>';
-  difficultyRow.appendChild(difficultyRating);
-  const tasteRow = document.createElement('div');
-  tasteRow.className = 'd-flex align-items-center';
-  tasteRow.innerHTML = '<p class="mb-0 mr-2">Taste:</p>';
-  tasteRow.appendChild(tasteRating);
-  cardElement.querySelector('.card-body').appendChild(difficultyRow);
-  cardElement.querySelector('.card-body').appendChild(tasteRow);
+  const difficultyRating = createStarRating(review.difficultyRating)
+  const tasteRating = createStarRating(review.tasteRating)
+  const difficultyRow = document.createElement("div")
+  difficultyRow.className = "d-flex align-items-center"
+  difficultyRow.innerHTML = '<p class="mb-0 mr-2">Difficulty:</p>'
+  difficultyRow.appendChild(difficultyRating)
+  const tasteRow = document.createElement("div")
+  tasteRow.className = "d-flex align-items-center"
+  tasteRow.innerHTML = '<p class="mb-0 mr-2">Taste:</p>'
+  tasteRow.appendChild(tasteRating)
+  cardElement.querySelector(".card-body").appendChild(difficultyRow)
+  cardElement.querySelector(".card-body").appendChild(tasteRow)
 
-  return cardElement;
+  return cardElement
 }
+
+//function to check if logged pr guest
+function checkLogged() {
+  const user = sessionStorage.getItem("loggedUser")
+  const saved = document.getElementById("saved")
+  const account = document.getElementById("account")
+  const navName = document.getElementById("userNav")
+  const reviewButton = document.getElementById("reviewButton")
+  const mealButton = document.getElementById("mealButton")
+  if (user === "" || user === null) {
+    navName.innerHTML = "Guest"
+    account.href = "/HTML/logIn.html"
+    account.innerHTML = "Log In"
+    saved.setAttribute("data-bs-toggle", "modal")
+    saved.setAttribute("data-bs-target", "#LoginModal")
+    reviewButton.setAttribute("data-bs-target", "#LoginModal")
+    mealButton.setAttribute("data-bs-toggle", "modal")
+    mealButton.setAttribute("data-bs-target", "#LoginModal")
+    sessionStorage.setItem("loggedUser", "")
+  } else {
+    navName.innerHTML = user
+  }
+}
+
+//function to set the review date as today
+function setReviewDate() {
+  var today = new Date();
+  var formattedDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+  var dateInput = document.getElementById('reviewDate');
+  dateInput.setAttribute('placeholder', formattedDate);
+}
+
+
 
 // Fetch categories and create buttons when the page loads
 window.onload = () => {
   fetchCategories().then((categories) => {
     createCategoryButtons(categories)
     displayRandomCards()
+    checkLogged()
+    setReviewDate()
   })
 }
