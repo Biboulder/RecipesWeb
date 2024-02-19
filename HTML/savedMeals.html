@@ -57,40 +57,54 @@
       document.getElementById("userNav").innerHTML += sessionStorage.getItem("loggedUser")
     </script>
     <div class="modal fade justify-content-center" id="mealInfo">
-      <div class="modal-lg modal-dialog modal-dialog-scrollable">
+      <div class=" modal-xl modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header" style="background-color: #8DB87C;">
             <h3 class="modal-title display-6" id="mealName"></h3>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
             <div class="container">
               <div class="row">
-                <div class="col-6">
-                  <img src="" id="mealImage" class="img-fluid" style="border-radius: 20px" />
+                <div class="col-6 d-flex justify-content-center align-items-center">
+                  <img src="" id="mealImage" class="img-fluid shadow" style="border-radius: 20px;"/>
                 </div>
                 <div class="col-6">
                   <h4 class="display-6">Ingredients</h4>
-                  <div class="container" style="overflow: auto; max-height: 300px; padding-top: 10px;">
+                  <div class="container" style="overflow: auto; max-height:480px; padding-top: 10px; background-color: #d4e8c1; border-radius: 20px;">
                     <ul id="mealIngredients"></ul>
                   </div>
                 </div>
               </div>
               <div class="row">
                 <div class="col-12">
-                  <div class="container" style="padding-left: 10px; padding-right: 10px">
+                  <div class="container" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;">
                     <h4 class="display-6">Instructions</h4>
-                    <p id="mealInstructions" style="white-space: pre-line;"></p>
+                    <div style="background-color: #d4e8c1; border-radius: 20px; padding: 10px;">
+                      <p id="mealInstructions" style="white-space: pre-line;"></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <div class="container" style="padding-left: 10px; padding-right: 10px; padding-top: 10px;">
+                    <h4 class="display-6">Note</h4>  
+                    <div class="container" style="padding-top: 10px;">
+                      <textarea class="form-control" id="note" rows="3" style="border-radius: 10px;"></textarea>
+                      <button class="btn btn-secondary" onclick="saveNote()" style="background-color: #ed8a3f; margin-top: 10px;">Save note</button>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="modal-footer">
-            <button id="mealButton" type="button" class="btn btn-secondary" data-bs-toggle="button" onclick="saveMeal()" style="background-color: #ed8a3f"></button>
+          <div class="modal-footer" style="background-color: #8DB87C;">
+            <button id="mealButton" type="button" class="btn btn-secondary" data-bs-toggle="button" onclick="saveMeal()" style="background-color: #ed8a3f;"></button>
           </div>
         </div>
       </div>
     </div>
+
   </body>
 </html>

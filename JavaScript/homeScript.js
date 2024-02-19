@@ -77,6 +77,28 @@ function fetchMealById(mealId) {
     .catch((error) => console.error(`Error fetching meal by ID ${mealId}:`, error))
 }
 
+// Function to fetch reviews
+function fetchReviews(mealId) {
+  const reviews = JSON.parse(localStorage.getItem('reviews'));
+  const mealReviews = reviews.filter(review => review.mealId === mealId);
+  return mealReviews;
+}
+
+// Function to fetch notes
+function fetchNote(mealID) {
+  const userName = sessionStorage.getItem("loggedUser")
+  let notes = JSON.parse(localStorage.getItem("notes"))
+  if (!notes) {
+    notes = []
+  }
+  const mealNote = notes.filter((note) => note.mealId === mealID && note.userName === userName)
+  if (mealNote.length === 0) {
+    return null
+  }
+  return mealNote[0]
+}
+
+
 // Function to search meal by name
 function searchMeal() {
   const mealName = document.getElementById("search input").value
@@ -170,6 +192,7 @@ function displayMealInfo(meal) {
   const mealImage = document.getElementById("mealImage")
   const mealInstructions = document.getElementById("mealInstructions")
   const mealIngredients = document.getElementById("mealIngredients")
+  const reviewsRow = document.getElementById("reviewsRow")
   mealName.textContent = meal.strMeal
   // Save the meal ID in a data-* attribute
   mealName.dataset.mealId = meal.idMeal
@@ -186,6 +209,17 @@ function displayMealInfo(meal) {
     listItem.textContent = `${ingredient} - ${measure}`
     mealIngredients.appendChild(listItem)
   }
+  reviewsRow.innerHTML = ""
+  fetchReviews(meal.idMeal).forEach((review) => {
+
+    const reviewCard = createReviewCard(review)
+    reviewsRow.appendChild(reviewCard)
+  })
+  if (reviewsRow.hasChildNodes()) {
+    document.getElementById("noReviews").innerHTML = ""
+  } else {
+    document.getElementById("noReviews").innerHTML = "No reviews yet, be the first to review this meal!"
+  }
 }
 
 // Function to save meals
@@ -198,6 +232,12 @@ function saveMeal() {
   if (loggedUser.savedMeals.includes(mealId)) {
     loggedUser.savedMeals = loggedUser.savedMeals.filter((id) => id !== mealId)
     mealButton.textContent = "Save"
+    const mealNote = fetchNote(mealId);
+    if (mealNote) {
+      notes = JSON.parse(localStorage.getItem("notes"))
+      notes = notes.filter(note => note.mealId !== mealNote.mealId || note.userName !== mealNote.userName);
+      localStorage.setItem("notes", JSON.stringify(notes))
+    }
   } else {
     loggedUser.savedMeals.push(mealId)
     mealButton.textContent = "Unsave"
@@ -217,7 +257,6 @@ function textButton(mealId) {
     mealButton.textContent = "Save"
   }
 }
-
 
 // function to save a review
 function saveReview() {
@@ -239,6 +278,52 @@ function saveReview() {
   }
   reviews.push(review);
   localStorage.setItem('reviews', JSON.stringify(reviews));
+  //location.reload();
+}
+
+// Function to create a star rating element
+function createStarRating(rating) {
+  const ratingElement = document.createElement('div');
+  ratingElement.className = 'rating';
+  ratingElement.style.marginBottom = '10px';
+  ratingElement.style.marginLeft = '20px';
+  for (let i = 1; i <= 5; i++) {
+    const icon = document.createElement('i');
+    icon.className = `bi-star${i <= rating ? '-fill' : ''}`;
+    icon.style.marginRight = '5px';
+    icon.style.fontSize = '1.5rem';
+    ratingElement.appendChild(icon);
+  }
+  return ratingElement;
+}
+
+// Function to create a review card
+function createReviewCard(review) {
+  const cardElement = document.createElement('div');
+  cardElement.classList.add('col', 'mb-4');
+  cardElement.innerHTML = `
+    <div class="card h-100 shadow" style="background-color: #D4E8C1; border-radius: 15px">
+      <div class="card-body" style="background-color: #D4E8C1; border-radius: 15px">
+        <h4 class="card-title">${review.username}</h4>
+        <p class="card-text">Preparation date: ${review.reviewDate}</p>
+      </div>
+    </div>
+  `;
+
+  const difficultyRating = createStarRating(review.difficultyRating);
+  const tasteRating = createStarRating(review.tasteRating);
+  const difficultyRow = document.createElement('div');
+  difficultyRow.className = 'd-flex align-items-center';
+  difficultyRow.innerHTML = '<p class="mb-0 mr-2">Difficulty:</p>';
+  difficultyRow.appendChild(difficultyRating);
+  const tasteRow = document.createElement('div');
+  tasteRow.className = 'd-flex align-items-center';
+  tasteRow.innerHTML = '<p class="mb-0 mr-2">Taste:</p>';
+  tasteRow.appendChild(tasteRating);
+  cardElement.querySelector('.card-body').appendChild(difficultyRow);
+  cardElement.querySelector('.card-body').appendChild(tasteRow);
+
+  return cardElement;
 }
 
 // Fetch categories and create buttons when the page loads
