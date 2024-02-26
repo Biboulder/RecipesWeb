@@ -50,7 +50,6 @@ function fetchMealsByCategory(category) {
       const fetchPromises = data.meals.map((meal) => {
         return fetchMealById(meal.idMeal)
       })
-      console.log(fetchPromises)
       // Wait for all the fetches to complete before returning the meals
       return Promise.all(fetchPromises)
     })
@@ -154,7 +153,7 @@ function createCategoryButtons(categories) {
   categories.forEach((category) => {
     const button = document.createElement("button")
     button.textContent = category.strCategory
-    button.className = "btn btn-lg mx-1 my-1"
+    button.className = "btn btn-lg mx-1 my-1 shadow"
     button.style.backgroundColor = "#8DB87C"
     button.style.color = "white"
     button.addEventListener("click", () => {
@@ -247,7 +246,6 @@ function saveMeal() {
 function textButton(mealId) {
   const userName = sessionStorage.getItem("loggedUser")
   const mealButton = document.getElementById("mealButton")
-  console.log(userName)
   if (userName === "") {
     mealButton.textContent = "Save"
   } else {
@@ -268,7 +266,12 @@ function saveReview() {
   const tasteRating = Array.from(document.querySelectorAll('input[name="taste"]')).find((radio) => radio.checked).value
   const username = sessionStorage.getItem("loggedUser")
   const mealId = document.getElementById("mealName").dataset.mealId
+  if (reviewDate === "") {
+    alert("Please select a date")
+    return
+  } else {
   const review = {
+    id: Date.now(),
     username,
     mealId,
     reviewDate,
@@ -282,6 +285,7 @@ function saveReview() {
   reviews.push(review)
   localStorage.setItem("reviews", JSON.stringify(reviews))
   //location.reload();
+} 
 }
 
 // Function to create a star rating element
@@ -352,15 +356,6 @@ function checkLogged() {
   }
 }
 
-//function to set the review date as today
-function setReviewDate() {
-  var today = new Date();
-  var formattedDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-  var dateInput = document.getElementById('reviewDate');
-  dateInput.setAttribute('placeholder', formattedDate);
-}
-
-
 
 // Fetch categories and create buttons when the page loads
 window.onload = () => {
@@ -368,6 +363,5 @@ window.onload = () => {
     createCategoryButtons(categories)
     displayRandomCards()
     checkLogged()
-    setReviewDate()
   })
 }

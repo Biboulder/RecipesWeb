@@ -45,31 +45,31 @@
       </div>
     </nav>
     <div
-      class=" shadow container justify-content-center allign-items-center max-width: 900px"
-      style="height: fit-content; display: flex; align-items: center; justify-content: center; margin-top: 10%; border-radius: 20px; background-color: rgb(141, 184, 124); max-width: 900px; padding: 1%"
+      class="shadow container justify-content-center allign-items-center max-width: 900px"
+      style="height: fit-content; display: flex; align-items: center; justify-content: center; margin-top: 5%; border-radius: 20px; background-color: rgb(141, 184, 124); max-width: 900px; padding: 1%"
     >
       <div class="row justify-content-center">
-        <div class="row" style="margin-bottom: 10px;">
-          <h2 class="display-6" style="text-align: center;">ACCOUNT</h2>
+        <div class="row" style="margin-bottom: 10px">
+          <h2 class="display-6" style="text-align: center">ACCOUNT</h2>
         </div>
         <div class="col-6">
-          <div class="row" id="favouriteMeal" style="margin-left: 5%;">
-          </div>
+          <div class="row" id="favouriteMeal" style="margin-left: 5%"></div>
         </div>
         <div class="col-6">
           <div class="container">
-            <div class="shadow" style="margin-right: 5%; background-color: #f1da86; padding: 20px; border-radius: 10px;">
-              <h6>
-                Username: <br>
-              </h6>
+            <div class="shadow" style="margin-right: 5%; margin-bottom: 5%; background-color: #f1da86; padding: 20px; border-radius: 10px">
+              <h6>Username: <br /></h6>
               <h3 id="username" class="display-5"></h3>
-              <br>
-              <h6>
-                E-mail: <br>
-              </h6>
+              <br />
+              <h6>E-mail: <br /></h6>
               <h3 id="email" class="display-5"></h3>
             </div>
           </div>
+          <a href="/HTML/reviews.html"  style="text-decoration: none; color: inherit;">
+          <div class="container">
+            <div class="shadow" style="margin-right: 5%; background-color: #f1da86; padding: 20px; border-radius: 10px">My Reviews</div>
+          </div>
+        </a>
         </div>
         <div class="row" style="padding-top: 20px">
           <div class="d-flex justify-content-between">
@@ -90,5 +90,10 @@
     <script>
       document.getElementById("userNav").innerHTML += sessionStorage.getItem("loggedUser")
     </script>
+     <style>
+      body {
+        background: linear-gradient(to right, #ff956b, #ffb8a4);
+      }
+      </style>
   </body>
 </html>
